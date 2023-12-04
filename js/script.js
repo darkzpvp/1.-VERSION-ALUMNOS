@@ -32,27 +32,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const api = "/data/datos.json";
 
     fetch(api)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
+      .then(response => response.json())
+      .then(data => {
         // Crear y mostrar contenido de la página
         var rowDiv = document.createElement("div");
         rowDiv.classList.add("row");
 
-        data.forEach(function (datos, index) {
+        data.forEach(({ imagen, nombre, instructor, precio, id }, index) => {
           // Crear un nuevo div para cada curso
           var cursoDiv = document.createElement("div");
           cursoDiv.classList.add("four", "columns", "card");
 
           cursoDiv.innerHTML = `
-            <img src="${datos.imagen}" class="imagen-curso u-full-width" />
+            <img src="${imagen}" class="imagen-curso u-full-width" />
             <div class="info-card">
-              <h4>${datos.nombre}</h4>
-              <p>${datos.instructor}</p>
+              <h4>${nombre}</h4>
+              <p>${instructor}</p>
               <img src="img/estrellas.png" />
-              <p class="precio">$${datos.precio} <span class="u-pull-right">$15</span></p>
-              <a href="#" class="u-full-width button-primary button input agregar-carrito" data-id="${datos.id}">Agregar Al Carrito</a>
+              <p class="precio">$${precio} <span class="u-pull-right">$15</span></p>
+              <a href="#" class="u-full-width button-primary button input agregar-carrito" data-id="${id}">Agregar Al Carrito</a>
             </div>
           `;
 
@@ -70,10 +68,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Actualizar interfaz de carrito después de cargar la página
         actualizarCarritoUI();
       })
-      .catch(function (error) {
+      .catch(error => {
         console.error("Error: " + error);
       });
   }
+
 
   function obtenerInformacionCurso(id) {
     var api = "/data/datos.json";
