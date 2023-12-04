@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var rowDiv = document.createElement("div");
         rowDiv.classList.add("row");
 
-        data.forEach(({ imagen, nombre, instructor, precio, id }, index) => {
+        data.forEach(({ imagen, nombre, precio, id }, index) => {
           // Crear un nuevo div para cada curso
           var cursoDiv = document.createElement("div");
           cursoDiv.classList.add("four", "columns", "card");
