@@ -1,0 +1,86 @@
+[
+    {
+        "id": "1",
+        "nombre": "HTML5, CSS3, JavaScript para Principiantes",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso1.jpg"
+    },
+    {
+        "id": "2",
+        "nombre": "Curso de Comida Vegetariana",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso2.jpg"
+    },
+    {
+        "id": "3",
+        "nombre": "Guitarra para Principiantes",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso3.jpg"
+    },
+    {
+        "id": "4",
+        "nombre": "Huerto en tu casa",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso4.jpg"
+    },
+    {
+        "id": "5",
+        "nombre": "Decoración con productos de tu hogar",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso5.jpg"
+    },
+    {
+        "id": "6",
+        "nombre": "Diseño Web para Principiantes",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso6.jpg"
+    },
+    {
+        "id": "7",
+        "nombre": "Comida Mexicana para principiantes",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso7.jpg"
+    },
+    {
+        "id": "8",
+        "nombre": "Estudio Musical en tu casa",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso8.jpg"
+    },
+    {
+        "id": "9",
+        "nombre": "Cosecha tus propias frutas y verduras",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso9.jpg"
+    },
+    {
+        "id": "10",
+        "nombre": "Prepara galletas caseras",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso10.jpg"
+    },
+    {
+        "id": "11",
+        "nombre": "JavaScript Moderno con ES6",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso11.jpg"
+    },
+    {
+        "id": "12",
+        "nombre": "100 Recetas de Comida Natural",
+        "precio": 15.00,
+        "cantidad": 1,
+        "imagen": "/img/curso12.jpg"
+    }
+]
