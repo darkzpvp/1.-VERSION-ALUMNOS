@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <img src="${imagen}" class="imagen-curso u-full-width" />
             <div class="info-card">
               <h4>${nombre}</h4>
-              <p>${instructor}</p>
+              <p>Pedro</p>
               <img src="img/estrellas.png" />
               <p class="precio">$${precio} <span class="u-pull-right">$15</span></p>
               <a href="#" class="u-full-width button-primary button input agregar-carrito" data-id="${id}">Agregar Al Carrito</a>
