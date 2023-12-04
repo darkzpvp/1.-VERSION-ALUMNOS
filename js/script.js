@@ -1,20 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Selección de elementos del DOM
   var listaCarrito = document.querySelector("#lista-carrito");
-  var vaciar_carrito = document.querySelector("#vaciar-carrito");
-  var carrito = [];
-  imprimirPagina();
+  var vaciarCarrito = document.querySelector("#vaciar-carrito");
+  var carrito = obtenerCarritoLocalStorage() || []; // Obtener carrito del localStorage
+
+  obtenerCarritoYImprimirPagina(); // Inicializar página con contenido y carrito
+
   document.addEventListener("click", function (e) {
+    // Manejar clics en botones "Agregar al Carrito"
     if (e.target.classList.contains("agregar-carrito")) {
       e.preventDefault();
       var cursoId = e.target.getAttribute("data-id");
       obtenerInformacionCurso(cursoId);
     }
   });
-  vaciar_carrito.addEventListener("click", () => {
+
+  vaciarCarrito.addEventListener("click", () => {
+    // Vaciar el carrito al hacer clic en "Vaciar Carrito"
     carrito = [];
     actualizarCarritoUI();
+    guardarCarritoLocalStorage();
     console.log(carrito);
   });
+
+  function obtenerCarritoYImprimirPagina() {
+    carrito = obtenerCarritoLocalStorage() || [];
+    imprimirPagina(); // Cargar contenido de la página
+  }
 
   function imprimirPagina() {
     const api = "/data/datos.json";
@@ -24,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then(function (data) {
-        // Crear un nuevo div para cada fila
+        // Crear y mostrar contenido de la página
         var rowDiv = document.createElement("div");
         rowDiv.classList.add("row");
 
@@ -48,13 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
           rowDiv.appendChild(cursoDiv);
 
           // Si hemos llegado al tercer curso, agregar la fila al contenedor principal y reiniciarla
-          //ESTO ES DE CHATGPT, YA QUE ME IMPRIMÍA TODO DE FORMA DESORDENADA
           if ((index + 1) % 3 === 0 || index === data.length - 1) {
             document.getElementById("lista-cursos").appendChild(rowDiv);
             rowDiv = document.createElement("div");
             rowDiv.classList.add("row");
           }
         });
+
+        // Actualizar interfaz de carrito después de cargar la página
+        actualizarCarritoUI();
       })
       .catch(function (error) {
         console.error("Error: " + error);
@@ -100,8 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("agregando curso nuevo: " + curso);
       carrito.push(curso);
     }
+    // Actualizar interfaz de carrito y guardar en el localStorage
     actualizarCarritoUI();
+    guardarCarritoLocalStorage();
   }
+
   function borrarCarrito(curso) {
     var cursoExistente = carrito.find(function (item) {
       return item.id === curso.id;
@@ -109,12 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (cursoExistente) {
       var indiceAEliminar = carrito.indexOf(cursoExistente);
-
-      // Utiliza splice en el array 'carrito' para eliminar el curso en el índice especificado
       carrito.splice(indiceAEliminar, 1);
-
-      // Llama a la función para actualizar la interfaz de usuario del carrito después de eliminar
+      // Actualizar interfaz de carrito y guardar en el localStorage
       actualizarCarritoUI();
+      guardarCarritoLocalStorage();
     }
   }
 
@@ -123,30 +138,27 @@ document.addEventListener("DOMContentLoaded", function () {
     console.table(carrito);
     listaCarrito.innerHTML = `
     <tr>
-    <th>Imagen</th>
-    <th>Nombre</th>
-    <th>Precio</th>
-    <th>Cantidad</th>
-    <th></th>
-  </tr>
-  `;
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Cantidad</th>
+      <th></th>
+    </tr>
+    `;
     carrito.forEach(function ({ nombre, precio, cantidad, id, imagen }) {
       var fila = document.createElement("tr");
       fila.innerHTML = `
-      <td><img src="${imagen}" alt="${nombre}" style=" height: 50px;"></td>
-                <td>${nombre}</td>
-                <td>${precio}</td>
-                <td>${cantidad}</td>
-                <td><a href="#" class="borrar-curso" data-id="${id}">X</a></td>
-            `;
+        <td><img src="${imagen}" alt="${nombre}" style=" height: 50px;"></td>
+        <td>${nombre}</td>
+        <td>${precio}</td>
+        <td>${cantidad}</td>
+        <td><a href="#" class="borrar-curso" data-id="${id}">X</a></td>
+      `;
 
-      // Agrega un evento de clic a los enlaces "Eliminar" para llamar a la función borrarCarrito
       var enlaceEliminar = fila.querySelector(".borrar-curso");
       enlaceEliminar.addEventListener("click", function (e) {
         e.preventDefault();
-        // Obtén el data-id del enlace clickeado
         var cursoId = e.target.getAttribute("data-id");
-        // Encuentra el curso correspondiente en el carrito y llama a borrarCarrito
         var cursoAEliminar = carrito.find(function (curso) {
           return curso.id === cursoId;
         });
@@ -157,5 +169,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       listaCarrito.appendChild(fila);
     });
+  }
+
+  function guardarCarritoLocalStorage() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }
+
+  function obtenerCarritoLocalStorage() {
+    return JSON.parse(localStorage.getItem("carrito")) || null;
   }
 });
